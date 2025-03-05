@@ -20,6 +20,9 @@ class Author:
     
     def magazines(self):
         return list({article.magazine for article in self._articles})
+    
+    
+
         
 class Magazine:
     def __init__(self,name,category):
@@ -57,6 +60,7 @@ class Magazine:
 
             
 class Article:
+    all=[]
     def __init__(self,author,magazine,title):
         if not isinstance(author,Author):
             raise TypeError('Must be an instance of Author')
@@ -70,6 +74,7 @@ class Article:
 
         author.articles().append(self)
         magazine.articles().append(self)
+        Article.all.append(self)
 
     @property
     def title(self):
@@ -77,7 +82,7 @@ class Article:
 
     @title.setter
     def title(self,value):
-        if isinstance(value,str) and 5 <= len(value) >= 50 :
+        if isinstance(value,str) and 5 <= len(value) <= 50 :
             if not hasattr(self ,'_title'):
                 self._title = value
         else:
